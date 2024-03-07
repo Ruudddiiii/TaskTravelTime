@@ -32,6 +32,11 @@ class TaskApp(QMainWindow):
         # Update LCD display
         self.update_lcd()
 
+        # Connect textChanged signal of the QLineEdit to add_place function
+        self.ui.lineEdit_2.textChanged.connect(self.add_place)
+
+        self.ui.tabWidget.setCurrentIndex(0)
+
     def accept(self):
         # Save tasks to file before closing
         self.save_tasks()
@@ -85,6 +90,10 @@ class TaskApp(QMainWindow):
                     self.total_tasks += 1
         except FileNotFoundError:
             pass
+
+    def add_place(self, text):
+        # Add the entered place to the QListWidget_2
+        self.ui.listWidget_2.addItem(text)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -1,8 +1,12 @@
 <RCC>
   <qresource prefix="newPrefix">
-    <file>pixx.png</file>
-    <file>pix.png</file>
-    <file>../../Pictures/Screenshot from 2024-03-07 22-28-42.png</file>
+    <file>../../../Pictures/Screenshot from 2024-03-07 22-28-42.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-07 23-29-27.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-07 23-16-23.png</file>
   </qresource>
   <qresource/>
 </RCC>
