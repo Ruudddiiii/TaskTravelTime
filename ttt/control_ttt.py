@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from generated_ttt import Ui_Dialog
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
 class TaskApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-
+        self.setWindowIcon(QIcon('/home/csl-r/Pictures/test.png'))
         # Set window opacity
         self.setWindowOpacity(1)  # Set the opacity value as desired (0.5 for 50% transparency)
 
@@ -18,6 +18,8 @@ class TaskApp(QMainWindow):
 
         # Load tasks from file
         self.load_tasks()
+
+        self.load_city()
         
         # Connect returnPressed signal of the QLineEdit to add_place function
         self.ui.lineEdit_2.returnPressed.connect(self.add_place)
@@ -41,9 +43,12 @@ class TaskApp(QMainWindow):
 
         self.ui.tabWidget.setCurrentIndex(0)
 
+        
+
     def accept(self):
         # Save tasks to file before closing
         self.save_tasks()
+        self.save_city()
         # Close the window when OK button is pressed
         self.close()
 
@@ -89,14 +94,6 @@ class TaskApp(QMainWindow):
                 task_text = self.ui.listWidget.item(index).text()
                 f.write(task_text + '\n')
 
-    def save_city(self):
-        # Open the file in write mode and save tasks
-        with open('city.txt', 'w') as f:
-            for index in range(self.ui.listWidget_2.count()):
-                task_text = self.ui.listWidget_2.item(index).text()
-                f.write(task_text + '\n')
-
-
     def load_tasks(self):
         # Open the file in read mode and load tasks
         try:
@@ -107,6 +104,15 @@ class TaskApp(QMainWindow):
                     self.total_tasks += 1
         except FileNotFoundError:
             pass
+
+
+
+    def save_city(self):
+        # Open the file in write mode and save tasks
+        with open('city.txt', 'w') as f:
+            for index in range(self.ui.listWidget_2.count()):
+                task_text = self.ui.listWidget_2.item(index).text()
+                f.write(task_text + '\n')
 
     def load_city(self):
         # Open the file in read mode and load tasks
@@ -126,6 +132,8 @@ class TaskApp(QMainWindow):
             self.ui.listWidget_2.addItem(task_text)
             # Clear the QLineEdit
             self.ui.lineEdit_2.clear()
+
+            
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
