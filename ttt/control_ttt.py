@@ -18,6 +18,9 @@ class TaskApp(QMainWindow):
 
         # Load tasks from file
         self.load_tasks()
+        
+        # Connect returnPressed signal of the QLineEdit to add_place function
+        self.ui.lineEdit_2.returnPressed.connect(self.add_place)
 
         # Connect button box accepted and rejected signals to appropriate slots
         self.ui.buttonBox.accepted.connect(self.accept)
@@ -29,11 +32,12 @@ class TaskApp(QMainWindow):
         # Connect list item double click event to a function
         self.ui.listWidget.itemDoubleClicked.connect(self.delete_task)
 
+        self.ui.listWidget_2.itemDoubleClicked.connect(self.delete_city)
+
         # Update LCD display
         self.update_lcd()
 
         # Connect textChanged signal of the QLineEdit to add_place function
-        self.ui.lineEdit_2.textChanged.connect(self.add_place)
 
         self.ui.tabWidget.setCurrentIndex(0)
 
@@ -69,6 +73,11 @@ class TaskApp(QMainWindow):
         # Update LCD display
         self.update_lcd()
 
+    def delete_city(self, item):
+        # Remove the selected item from the QListWidget
+        self.ui.listWidget_2.takeItem(self.ui.listWidget_2.row(item))
+        # Decrement total tasks count
+
     def update_lcd(self):
         # Display the total number of tasks in the LCD display
         self.ui.lcdNumber.display(self.total_tasks)
@@ -79,6 +88,14 @@ class TaskApp(QMainWindow):
             for index in range(self.ui.listWidget.count()):
                 task_text = self.ui.listWidget.item(index).text()
                 f.write(task_text + '\n')
+
+    def save_city(self):
+        # Open the file in write mode and save tasks
+        with open('city.txt', 'w') as f:
+            for index in range(self.ui.listWidget_2.count()):
+                task_text = self.ui.listWidget_2.item(index).text()
+                f.write(task_text + '\n')
+
 
     def load_tasks(self):
         # Open the file in read mode and load tasks
@@ -91,9 +108,24 @@ class TaskApp(QMainWindow):
         except FileNotFoundError:
             pass
 
-    def add_place(self, text):
+    def load_city(self):
+        # Open the file in read mode and load tasks
+        try:
+            with open('city.txt', 'r') as f:
+                tasks = f.readlines()
+                for task in tasks:
+                    self.ui.listWidget_2.addItem(task.strip())
+        except FileNotFoundError:
+            pass
+
+    def add_place(self):
         # Add the entered place to the QListWidget_2
-        self.ui.listWidget_2.addItem(text)
+        task_text = self.ui.lineEdit_2.text()
+        if task_text:
+            # Add the task to the QListWidget
+            self.ui.listWidget_2.addItem(task_text)
+            # Clear the QLineEdit
+            self.ui.lineEdit_2.clear()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
