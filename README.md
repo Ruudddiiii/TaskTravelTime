@@ -1,4 +1,4 @@
-# Task_Travel_Remainder
+# TaskTravelTime
 GUI for managing task, travel and more.
 
 Just run the control_ttt.py to open the GUI, you also add an alias in .bashrc
