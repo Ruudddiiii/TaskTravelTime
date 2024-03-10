@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QIcon
 from generated_ttt import Ui_Dialog
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 
 class TaskApp(QMainWindow):
     def __init__(self):
@@ -41,7 +43,47 @@ class TaskApp(QMainWindow):
 
         # Connect textChanged signal of the QLineEdit to add_place function
 
+
+        self.reminder_dates = [QtCore.QDate.fromString(date_str, "yyyy-MM-dd") for date_str in ["2024-03-15", "2024-03-23", "2024-03-21", "2024-03-18"]]
+
+        # Connect QCalendarWidget's clicked signal to a custom slot
+        self.ui.calendarWidget.clicked.connect(self.custom_slot)
+
         self.ui.tabWidget.setCurrentIndex(0)
+
+        # Initialize calendar widget text formats
+        self.init_calendar_formats()
+
+    def init_calendar_formats(self):
+        # Initialize text formats for all dates in the calendar
+        default_format = self.get_default_format()
+        highlight_format = self.get_highlight_format()
+        
+        for date in self.reminder_dates:
+            self.ui.calendarWidget.setDateTextFormat(date, highlight_format)
+
+    def custom_slot(self):
+        # Get the selected date from the QCalendarWidget
+        selected_date = self.ui.calendarWidget.selectedDate()
+        
+        # Check if the selected date is in the list of reminder dates
+        if selected_date in self.reminder_dates:
+            # Toggle highlighting for selected date
+            if self.ui.calendarWidget.dateTextFormat(selected_date).background().color() == QtGui.QColor('green'):
+                self.ui.calendarWidget.setDateTextFormat(selected_date, self.get_default_format())
+            else:
+                self.ui.calendarWidget.setDateTextFormat(selected_date, self.get_highlight_format())
+
+    def get_default_format(self):
+        # Get the default text format for dates
+        default_format = QtGui.QTextCharFormat()
+        return default_format
+
+    def get_highlight_format(self):
+        # Create a text format to highlight dates
+        highlight_format = QtGui.QTextCharFormat()
+        highlight_format.setBackground(QtGui.QColor('green'))
+        return highlight_format
 
         
 
@@ -89,7 +131,7 @@ class TaskApp(QMainWindow):
 
     def save_tasks(self):
         # Open the file in write mode and save tasks
-        with open('tasks.txt', 'w') as f:
+        with open('/home/csl-r/Desktop/ttt/ttt/tasks.txt', 'w') as f:
             for index in range(self.ui.listWidget.count()):
                 task_text = self.ui.listWidget.item(index).text()
                 f.write(task_text + '\n')
@@ -97,7 +139,7 @@ class TaskApp(QMainWindow):
     def load_tasks(self):
         # Open the file in read mode and load tasks
         try:
-            with open('tasks.txt', 'r') as f:
+            with open('/home/csl-r/Desktop/ttt/ttt/tasks.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget.addItem(task.strip())
@@ -109,7 +151,7 @@ class TaskApp(QMainWindow):
 
     def save_city(self):
         # Open the file in write mode and save tasks
-        with open('city.txt', 'w') as f:
+        with open('/home/csl-r/Desktop/ttt/ttt/city.txt', 'w') as f:
             for index in range(self.ui.listWidget_2.count()):
                 task_text = self.ui.listWidget_2.item(index).text()
                 f.write(task_text + '\n')
@@ -117,7 +159,7 @@ class TaskApp(QMainWindow):
     def load_city(self):
         # Open the file in read mode and load tasks
         try:
-            with open('city.txt', 'r') as f:
+            with open('/home/csl-r/Desktop/ttt/ttt/city.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget_2.addItem(task.strip())
@@ -139,4 +181,8 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = TaskApp()
     window.show()
-    sys.exit(app.exec_())
+    try:
+        sys.exit(app.exec_())
+    except KeyboardInterrupt:
+        app.exit()
+

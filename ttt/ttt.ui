@@ -50,7 +50,7 @@
       <rect>
        <x>30</x>
        <y>10</y>
-       <width>821</width>
+       <width>831</width>
        <height>481</height>
       </rect>
      </property>
@@ -282,7 +282,7 @@
       <rect>
        <x>30</x>
        <y>10</y>
-       <width>841</width>
+       <width>831</width>
        <height>481</height>
       </rect>
      </property>
@@ -290,7 +290,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="test.qrc">:/newPrefix/Pictures/Screenshot from 2024-03-08 17-15-52.png</pixmap>
+      <pixmap resource="test.qrc">:/newPrefix/Pictures/Screenshot from 2024-03-07 23-29-27.png</pixmap>
      </property>
     </widget>
     <widget class="QLabel" name="label_8">
