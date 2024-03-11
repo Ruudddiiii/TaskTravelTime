@@ -2,9 +2,12 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QIcon
 from generated_ttt import Ui_Dialog
-from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore
+from PyQt5.QtGui import QTextCharFormat, QColor
+from PyQt5.QtWidgets import QToolTip
+from PyQt5.QtWidgets import QAction
+
 
 class TaskApp(QMainWindow):
     def __init__(self):
@@ -44,7 +47,34 @@ class TaskApp(QMainWindow):
         # Connect textChanged signal of the QLineEdit to add_place function
 
 
-        self.reminder_dates = [QtCore.QDate.fromString(date_str, "yyyy-MM-dd") for date_str in ["2024-03-15", "2024-03-23", "2024-03-21", "2024-03-18"]]
+        self.reminder_dates = [QtCore.QDate.fromString(date_str, "yyyy-MM-dd") for date_str in ["2024-01-01",
+                                                                                                "2024-01-05",
+                                                                                                "2024-01-07",
+                                                                                                "2024-01-29",
+                                                                                                "2024-01-31",
+                                                                                                "2024-02-27",
+                                                                                                "2024-04-12", 
+                                                                                                "2024-04-13",
+                                                                                                #Akhaand??
+                                                                                                "2024-04-19",
+                                                                                                "2024-04-23",
+                                                                                                "2024-04-29",
+                                                                                                "2024-05-03", 
+                                                                                                "2024-05-13", 
+                                                                                                #Topperr??
+                                                                                                "2024-05-21",
+                                                                                                "2024-06-25",
+                                                                                                #Turkeyy??
+                                                                                                "2024-08-15",
+                                                                                                "2024-08-25",
+                                                                                                #nagraj??
+                                                                                                "2024-09-22",
+                                                                                                "2024-10-18",                                                                                                
+                                                                                                "2024-11-15",
+                                                                                                "2024-11-27",
+                                                                                                "2024-06-25",
+                                                                                                                                                                                             
+                                                                                                ]]
 
         # Connect QCalendarWidget's clicked signal to a custom slot
         self.ui.calendarWidget.clicked.connect(self.custom_slot)
@@ -53,6 +83,9 @@ class TaskApp(QMainWindow):
 
         # Initialize calendar widget text formats
         self.init_calendar_formats()
+
+        # self.setup_dark_mode()
+
 
     def init_calendar_formats(self):
         # Initialize text formats for all dates in the calendar
@@ -65,24 +98,51 @@ class TaskApp(QMainWindow):
     def custom_slot(self):
         # Get the selected date from the QCalendarWidget
         selected_date = self.ui.calendarWidget.selectedDate()
-        
-        # Check if the selected date is in the list of reminder dates
-        if selected_date in self.reminder_dates:
-            # Toggle highlighting for selected date
-            if self.ui.calendarWidget.dateTextFormat(selected_date).background().color() == QtGui.QColor('green'):
-                self.ui.calendarWidget.setDateTextFormat(selected_date, self.get_default_format())
-            else:
-                self.ui.calendarWidget.setDateTextFormat(selected_date, self.get_highlight_format())
+
+        birthday_info = {
+            QtCore.QDate(2024, 1, 1): "Sharduul's Birthday",
+            QtCore.QDate(2024, 1, 5): "Dikki's Birthday",
+            QtCore.QDate(2024, 1, 7): "Scootyy's Birthday",
+            QtCore.QDate(2024, 1, 29): "Nitishh's Birthday",
+            QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
+            QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
+            QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
+            QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
+            QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
+            QtCore.QDate(2024, 4, 23): "Anniversayy ",
+            QtCore.QDate(2024, 4, 29): "Maaami Birthday",
+            QtCore.QDate(2024, 5, 3): "Doreeemon's Birthday",
+            QtCore.QDate(2024, 5, 13): "Mammmiii's Birthday",
+            QtCore.QDate(2024, 5, 21): "Manaswitii's Birthday",
+            QtCore.QDate(2024, 6, 25): "Diiiiiiii's Birthday",
+            QtCore.QDate(2024, 8, 15): "Faainaa's Birthday",
+            QtCore.QDate(2024, 8, 25): "Gauravvv's Birthday",
+            QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
+            QtCore.QDate(2024, 9, 22): "Princuuuu's Birthday",
+            QtCore.QDate(2024, 11, 15): "Lulwaa's Birthday",
+            QtCore.QDate(2024, 11, 27): "Sardarrrr's Birthday",
+
+            # Add more birthdays as needed
+        }
+        if selected_date in birthday_info:
+            tooltip_text = birthday_info[selected_date]
+            
+            # Calculate position for tooltip near the calendar widget
+            tooltip_position = self.ui.calendarWidget.mapToGlobal(self.ui.calendarWidget.pos())
+            tooltip_position.setX(tooltip_position.x() - 500 )  # Adjust X position
+            tooltip_position.setY(tooltip_position.y()  )  # Keep Y position
+
+            QToolTip.showText(tooltip_position, tooltip_text)
 
     def get_default_format(self):
         # Get the default text format for dates
-        default_format = QtGui.QTextCharFormat()
+        default_format = QTextCharFormat()
         return default_format
 
     def get_highlight_format(self):
-        # Create a text format to highlight dates
-        highlight_format = QtGui.QTextCharFormat()
-        highlight_format.setBackground(QtGui.QColor('green'))
+        # Create a text format to highlight dates with green color
+        highlight_format = QTextCharFormat()
+        highlight_format.setBackground(QColor('green'))
         return highlight_format
 
         
@@ -97,6 +157,7 @@ class TaskApp(QMainWindow):
     def reject(self):
         # Handle rejected signal from button box
         pass
+
 
     def add_task(self):
         # Get the task text from the QLineEdit
@@ -129,6 +190,21 @@ class TaskApp(QMainWindow):
         # Display the total number of tasks in the LCD display
         self.ui.lcdNumber.display(self.total_tasks)
 
+    # def setup_dark_mode(self):
+    #     self.dark_mode = False
+    #     self.toggle_action = QAction("Dark Mode", self)
+    #     self.toggle_action.setCheckable(True)
+    #     self.toggle_action.triggered.connect(self.toggle_dark_mode)
+    #     self.menuBar().addAction(self.toggle_action)
+
+    # def toggle_dark_mode(self):
+    #     self.dark_mode = not self.dark_mode
+    #     if self.dark_mode:
+    #         self.setStyleSheet("background-color: #333; color: white;")
+    #     else:
+    #         self.setStyleSheet("")  # Reset stylesheet to default
+
+
     def save_tasks(self):
         # Open the file in write mode and save tasks
         with open('/home/csl-r/Desktop/ttt/ttt/tasks.txt', 'w') as f:
@@ -146,8 +222,7 @@ class TaskApp(QMainWindow):
                     self.total_tasks += 1
         except FileNotFoundError:
             pass
-
-
+    
 
     def save_city(self):
         # Open the file in write mode and save tasks
