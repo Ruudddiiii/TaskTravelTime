@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-08 17-15-52.png</file>
+    <file>../../../Pictures/Screenshot from 2024-03-07 22-28-42.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-07 23-29-27.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-07 23-16-23.png</file>
+  </qresource>
+  <qresource/>
+  <qresource prefix="newPrefix">
+    <file>../../../Pictures/Screenshot from 2024-03-08 16-18-32.png</file>
+  </qresource>
+</RCC>
