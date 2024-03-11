@@ -128,7 +128,7 @@ class Ui_Dialog(object):
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.calendarWidget = QtWidgets.QCalendarWidget(self.Reminders)
-        self.calendarWidget.setGeometry(QtCore.QRect(470, 30, 371, 211))
+        self.calendarWidget.setGeometry(QtCore.QRect(400, 30, 441, 271))
         self.calendarWidget.setStyleSheet("")
         self.calendarWidget.setObjectName("calendarWidget")
         self.tabWidget.addTab(self.Reminders, "")
