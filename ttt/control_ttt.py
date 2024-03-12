@@ -53,6 +53,7 @@ class TaskApp(QMainWindow):
                                                                                                 "2024-01-29",
                                                                                                 "2024-01-31",
                                                                                                 "2024-02-27",
+                                                                                                "2024-03-12",
                                                                                                 "2024-04-12", 
                                                                                                 "2024-04-13",
                                                                                                 #Akhaand??
@@ -106,6 +107,7 @@ class TaskApp(QMainWindow):
             QtCore.QDate(2024, 1, 29): "Nitishh's Birthday",
             QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
             QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
+            QtCore.QDate(2024, 3, 12): "Jyooooti's Birthday",
             QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
             QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
             QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
@@ -207,7 +209,7 @@ class TaskApp(QMainWindow):
 
     def save_tasks(self):
         # Open the file in write mode and save tasks
-        with open('/home/csl-r/Desktop/ttt/ttt/tasks.txt', 'w') as f:
+        with open('tasks.txt', 'w') as f:
             for index in range(self.ui.listWidget.count()):
                 task_text = self.ui.listWidget.item(index).text()
                 f.write(task_text + '\n')
@@ -215,7 +217,7 @@ class TaskApp(QMainWindow):
     def load_tasks(self):
         # Open the file in read mode and load tasks
         try:
-            with open('/home/csl-r/Desktop/ttt/ttt/tasks.txt', 'r') as f:
+            with open('tasks.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget.addItem(task.strip())
@@ -226,7 +228,7 @@ class TaskApp(QMainWindow):
 
     def save_city(self):
         # Open the file in write mode and save tasks
-        with open('/home/csl-r/Desktop/ttt/ttt/city.txt', 'w') as f:
+        with open('city.txt', 'w') as f:
             for index in range(self.ui.listWidget_2.count()):
                 task_text = self.ui.listWidget_2.item(index).text()
                 f.write(task_text + '\n')
@@ -234,7 +236,7 @@ class TaskApp(QMainWindow):
     def load_city(self):
         # Open the file in read mode and load tasks
         try:
-            with open('/home/csl-r/Desktop/ttt/ttt/city.txt', 'r') as f:
+            with open('city.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget_2.addItem(task.strip())
