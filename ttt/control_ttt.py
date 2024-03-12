@@ -6,10 +6,38 @@ from PyQt5 import QtCore
 from PyQt5 import QtCore
 from PyQt5.QtGui import QTextCharFormat, QColor
 from PyQt5.QtWidgets import QToolTip
-from PyQt5.QtWidgets import QAction
-
+from PyQt5.QtWidgets import QMessageBox
+from datetime import datetime
 
 class TaskApp(QMainWindow):
+
+
+    birthday_info = {
+            QtCore.QDate(2024, 1, 1): "Sharduul's Birthday",
+            QtCore.QDate(2024, 1, 5): "Dikki's Birthday",
+            QtCore.QDate(2024, 1, 7): "Scootyy's Birthday",
+            QtCore.QDate(2024, 1, 29): "Nitishh's Birthday",
+            QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
+            QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
+            QtCore.QDate(2024, 3, 12): "Jyooooti's Birthday",
+            QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
+            QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
+            QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
+            QtCore.QDate(2024, 4, 23): "Anniversayy ",
+            QtCore.QDate(2024, 4, 29): "Maaami Birthday",
+            QtCore.QDate(2024, 5, 3): "Doreeemon's Birthday",
+            QtCore.QDate(2024, 5, 13): "Mammmiii's Birthday",
+            QtCore.QDate(2024, 5, 21): "Manaswitii's Birthday",
+            QtCore.QDate(2024, 6, 25): "Diiiiiiii's Birthday",
+            QtCore.QDate(2024, 8, 15): "Faainaa's Birthday",
+            QtCore.QDate(2024, 8, 25): "Gauravvv's Birthday",
+            QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
+            QtCore.QDate(2024, 9, 22): "Princuuuu's Birthday",
+            QtCore.QDate(2024, 11, 15): "Lulwaa's Birthday",
+            QtCore.QDate(2024, 11, 27): "Sardarrrr's Birthday",
+
+            # Add more birthdays as needed
+        }
     def __init__(self):
         super().__init__()
         self.ui = Ui_Dialog()
@@ -45,6 +73,9 @@ class TaskApp(QMainWindow):
         self.update_lcd()
 
         # Connect textChanged signal of the QLineEdit to add_place function
+
+
+        self.check_upcoming_events()
 
 
         self.reminder_dates = [QtCore.QDate.fromString(date_str, "yyyy-MM-dd") for date_str in ["2024-01-01",
@@ -96,6 +127,8 @@ class TaskApp(QMainWindow):
         for date in self.reminder_dates:
             self.ui.calendarWidget.setDateTextFormat(date, highlight_format)
 
+    
+    
     def custom_slot(self):
         # Get the selected date from the QCalendarWidget
         selected_date = self.ui.calendarWidget.selectedDate()
@@ -128,13 +161,36 @@ class TaskApp(QMainWindow):
         }
         if selected_date in birthday_info:
             tooltip_text = birthday_info[selected_date]
-            
+                
             # Calculate position for tooltip near the calendar widget
             tooltip_position = self.ui.calendarWidget.mapToGlobal(self.ui.calendarWidget.pos())
             tooltip_position.setX(tooltip_position.x() - 590 )  # Adjust X position
             tooltip_position.setY(tooltip_position.y()  + 20 )  # Keep Y position
 
             QToolTip.showText(tooltip_position, tooltip_text)
+
+    
+    def check_upcoming_events(self):
+        # Get today's date
+        today = datetime.now().date()
+        upcoming_events = []
+
+        # Check for upcoming events within 5 days
+        for date, event in self.birthday_info.items():
+            event_date = date.toPyDate()  # Convert QDate to datetime.date
+            days_until = (event_date - today).days
+
+            if 0 < days_until <= 3:
+                upcoming_events.append(f"{event} is in {days_until} days.")
+
+        # If there are any upcoming events, show a tooltip
+        if upcoming_events:
+            message = "\n".join(upcoming_events)
+            QMessageBox.information(self, "Upcoming Events", message)
+
+        # Connect QCalendarWidget's clicked signal to a custom slot
+        self.ui.calendarWidget.clicked.connect(self.custom_slot)
+
 
     def get_default_format(self):
         # Get the default text format for dates
