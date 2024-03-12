@@ -131,8 +131,8 @@ class TaskApp(QMainWindow):
             
             # Calculate position for tooltip near the calendar widget
             tooltip_position = self.ui.calendarWidget.mapToGlobal(self.ui.calendarWidget.pos())
-            tooltip_position.setX(tooltip_position.x() - 500 )  # Adjust X position
-            tooltip_position.setY(tooltip_position.y()  )  # Keep Y position
+            tooltip_position.setX(tooltip_position.x() - 590 )  # Adjust X position
+            tooltip_position.setY(tooltip_position.y()  + 20 )  # Keep Y position
 
             QToolTip.showText(tooltip_position, tooltip_text)
 
