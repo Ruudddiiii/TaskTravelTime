@@ -318,10 +318,10 @@
     <widget class="QCalendarWidget" name="calendarWidget">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>330</x>
        <y>30</y>
-       <width>441</width>
-       <height>271</height>
+       <width>511</width>
+       <height>341</height>
       </rect>
      </property>
      <property name="styleSheet">
