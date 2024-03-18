@@ -8,6 +8,8 @@ from PyQt5.QtGui import QTextCharFormat, QColor
 from PyQt5.QtWidgets import QToolTip
 from PyQt5.QtWidgets import QMessageBox
 from datetime import datetime
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QSpinBox
+
 
 class TaskApp(QMainWindow):
 
@@ -40,6 +42,20 @@ class TaskApp(QMainWindow):
         }
     def __init__(self):
         super().__init__()
+        self.days_limit = 3 
+        # self.setWindowTitle("Settings")
+        
+        layout = QVBoxLayout(self)
+        self.days_spinbox = QSpinBox()
+        self.days_spinbox.setMinimum(1)
+        self.days_spinbox.setMaximum(10)  # Adjust maximum limit as needed
+        layout.addWidget(QLabel("Set days limit for upcoming events:"))
+        layout.addWidget(self.days_spinbox)
+        
+        button_ok = QPushButton("OK")
+        button_ok.clicked.connect(self.accept)
+        layout.addWidget(button_ok)
+
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowIcon(QIcon('/home/csl-r/Pictures/test.png'))
@@ -119,6 +135,7 @@ class TaskApp(QMainWindow):
         # self.setup_dark_mode()
 
 
+    
     def init_calendar_formats(self):
         # Initialize text formats for all dates in the calendar
         default_format = self.get_default_format()
@@ -127,7 +144,9 @@ class TaskApp(QMainWindow):
         for date in self.reminder_dates:
             self.ui.calendarWidget.setDateTextFormat(date, highlight_format)
 
-    
+    # def setup_settings_button(self):
+    #     self.settings_button = QPushButton("Settings", self)
+    #     self.settings_button.clicked.connect(self.open_settings_dialog)
     
     def custom_slot(self):
         # Get the selected date from the QCalendarWidget
@@ -175,12 +194,12 @@ class TaskApp(QMainWindow):
         today = datetime.now().date()
         upcoming_events = []
 
-        # Check for upcoming events within 5 days
+        # Check for upcoming events within the set days limit
         for date, event in self.birthday_info.items():
             event_date = date.toPyDate()  # Convert QDate to datetime.date
             days_until = (event_date - today).days
 
-            if 0 < days_until <= 3:
+            if 0 < days_until <= self.days_limit:
                 upcoming_events.append(f"{event} is in {days_until} days.")
 
         # If there are any upcoming events, show a tooltip
@@ -265,7 +284,7 @@ class TaskApp(QMainWindow):
 
     def save_tasks(self):
         # Open the file in write mode and save tasks
-        with open('tasks.txt', 'w') as f:
+        with open('.tasks.txt', 'w') as f:
             for index in range(self.ui.listWidget.count()):
                 task_text = self.ui.listWidget.item(index).text()
                 f.write(task_text + '\n')
@@ -273,7 +292,7 @@ class TaskApp(QMainWindow):
     def load_tasks(self):
         # Open the file in read mode and load tasks
         try:
-            with open('tasks.txt', 'r') as f:
+            with open('.tasks.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget.addItem(task.strip())
@@ -284,7 +303,7 @@ class TaskApp(QMainWindow):
 
     def save_city(self):
         # Open the file in write mode and save tasks
-        with open('city.txt', 'w') as f:
+        with open('.city.txt', 'w') as f:
             for index in range(self.ui.listWidget_2.count()):
                 task_text = self.ui.listWidget_2.item(index).text()
                 f.write(task_text + '\n')
@@ -292,7 +311,7 @@ class TaskApp(QMainWindow):
     def load_city(self):
         # Open the file in read mode and load tasks
         try:
-            with open('city.txt', 'r') as f:
+            with open('.city.txt', 'r') as f:
                 tasks = f.readlines()
                 for task in tasks:
                     self.ui.listWidget_2.addItem(task.strip())
@@ -318,4 +337,3 @@ if __name__ == "__main__":
         sys.exit(app.exec_())
     except KeyboardInterrupt:
         app.exit()
-
