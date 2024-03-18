@@ -45,7 +45,7 @@ class TaskApp(QMainWindow):
         self.days_limit = 3 
         # self.setWindowTitle("Settings")
         
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         self.days_spinbox = QSpinBox()
         self.days_spinbox.setMinimum(1)
         self.days_spinbox.setMaximum(10)  # Adjust maximum limit as needed
@@ -58,7 +58,7 @@ class TaskApp(QMainWindow):
 
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-        self.setWindowIcon(QIcon('/home/csl-r/Pictures/test.png'))
+        self.setWindowIcon(QIcon('~/Downloads/ttt/photo.jpeg'))
         # Set window opacity
         self.setWindowOpacity(1)  # Set the opacity value as desired (0.5 for 50% transparency)
 
@@ -69,6 +69,8 @@ class TaskApp(QMainWindow):
         self.load_tasks()
 
         self.load_city()
+
+        self.load_place()
         
         # Connect returnPressed signal of the QLineEdit to add_place function
         self.ui.lineEdit_2.returnPressed.connect(self.add_place)
@@ -83,7 +85,7 @@ class TaskApp(QMainWindow):
         # Connect list item double click event to a function
         self.ui.listWidget.itemDoubleClicked.connect(self.delete_task)
 
-        self.ui.listWidget_2.itemDoubleClicked.connect(self.delete_city)
+        self.ui.listWidget_3.itemDoubleClicked.connect(self.delete_city)
 
         # Update LCD display
         self.update_lcd()
@@ -153,26 +155,26 @@ class TaskApp(QMainWindow):
         selected_date = self.ui.calendarWidget.selectedDate()
 
         birthday_info = {
-            QtCore.QDate(2024, 1, 1): "Sharduul's Birthday",
-            QtCore.QDate(2024, 1, 5): "Dikki's Birthday",
-            QtCore.QDate(2024, 1, 7): "Scootyy's Birthday",
-            QtCore.QDate(2024, 1, 29): "Nitishh's Birthday",
-            QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
-            QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
-            QtCore.QDate(2024, 3, 12): "Jyooooti's Birthday",
-            QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
-            QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
-            QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
-            QtCore.QDate(2024, 4, 23): "Anniversayy ",
-            QtCore.QDate(2024, 4, 29): "Maaami Birthday",
-            QtCore.QDate(2024, 5, 3): "Doreeemon's Birthday",
-            QtCore.QDate(2024, 5, 13): "Mammmiii's Birthday",
-            QtCore.QDate(2024, 5, 21): "Manaswitii's Birthday",
-            QtCore.QDate(2024, 6, 25): "Diiiiiiii's Birthday",
-            QtCore.QDate(2024, 8, 15): "Faainaa's Birthday",
-            QtCore.QDate(2024, 8, 25): "Gauravvv's Birthday",
+            QtCore.QDate(2024, 1,   1): "Sharduul's Birthday",
+            QtCore.QDate(2024, 1,   5): "Dikki's Birthday",
+            QtCore.QDate(2024, 1,   7): "Scootyy's Birthday",
+            QtCore.QDate(2024, 1,  29): "Nitishh's Birthday",
+            QtCore.QDate(2024, 1,  31): "Reenii's Birthday",
+            QtCore.QDate(2024, 2,  27): "Aashiii's Birthday",
+            QtCore.QDate(2024, 3,  12): "Jyooooti's Birthday",
+            QtCore.QDate(2024, 4,  12): "Papaa's Birthday",
+            QtCore.QDate(2024, 4,  13): "Kauwaa's Birthday",
+            QtCore.QDate(2024, 4,  19): "Meeeee's Birthday",
+            QtCore.QDate(2024, 4,  23): "Anniversaryyy ",
+            QtCore.QDate(2024, 4,  29): "Maaami Birthday",
+            QtCore.QDate(2024, 5,  3 ): "Doreeemon's Birthday",
+            QtCore.QDate(2024, 5,  13): "Mammmiii's Birthday",
+            QtCore.QDate(2024, 5,  21): "Manaswitii's Birthday",
+            QtCore.QDate(2024, 6,  25): "Diiiiiiii's Birthday",
+            QtCore.QDate(2024, 8,  15): "Faainaa's Birthday",
+            QtCore.QDate(2024, 8,  25): "Gauravvv's Birthday",
+            QtCore.QDate(2024, 9,  22): "Princuuuu's Birthday",
             QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
-            QtCore.QDate(2024, 9, 22): "Princuuuu's Birthday",
             QtCore.QDate(2024, 11, 15): "Lulwaa's Birthday",
             QtCore.QDate(2024, 11, 27): "Sardarrrr's Birthday",
 
@@ -228,6 +230,7 @@ class TaskApp(QMainWindow):
         # Save tasks to file before closing
         self.save_tasks()
         self.save_city()
+        self.save_place()
         # Close the window when OK button is pressed
         self.close()
 
@@ -260,26 +263,14 @@ class TaskApp(QMainWindow):
 
     def delete_city(self, item):
         # Remove the selected item from the QListWidget
-        self.ui.listWidget_2.takeItem(self.ui.listWidget_2.row(item))
+        self.ui.listWidget_3.takeItem(self.ui.listWidget_3.row(item))
         # Decrement total tasks count
 
     def update_lcd(self):
         # Display the total number of tasks in the LCD display
         self.ui.lcdNumber.display(self.total_tasks)
 
-    # def setup_dark_mode(self):
-    #     self.dark_mode = False
-    #     self.toggle_action = QAction("Dark Mode", self)
-    #     self.toggle_action.setCheckable(True)
-    #     self.toggle_action.triggered.connect(self.toggle_dark_mode)
-    #     self.menuBar().addAction(self.toggle_action)
-
-    # def toggle_dark_mode(self):
-    #     self.dark_mode = not self.dark_mode
-    #     if self.dark_mode:
-    #         self.setStyleSheet("background-color: #333; color: white;")
-    #     else:
-    #         self.setStyleSheet("")  # Reset stylesheet to default
+  
 
 
     def save_tasks(self):
@@ -323,9 +314,26 @@ class TaskApp(QMainWindow):
         task_text = self.ui.lineEdit_2.text()
         if task_text:
             # Add the task to the QListWidget
-            self.ui.listWidget_2.addItem(task_text)
+            self.ui.listWidget_3.addItem(task_text)
             # Clear the QLineEdit
             self.ui.lineEdit_2.clear()
+
+    def save_place(self):
+        # Open the file in write mode and save tasks
+        with open('.places_to_visit.txt', 'w') as f:
+            for index in range(self.ui.listWidget_3.count()):
+                task_text = self.ui.listWidget_3.item(index).text()
+                f.write(task_text + '\n')
+
+    def load_place(self):
+        # Open the file in read mode and load tasks
+        try:
+            with open('.places_to_visit.txt', 'r') as f:
+                tasks = f.readlines()
+                for task in tasks:
+                    self.ui.listWidget_3.addItem(task.strip())
+        except FileNotFoundError:
+            pass
 
             
 
