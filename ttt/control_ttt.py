@@ -22,6 +22,7 @@ class TaskApp(QMainWindow):
             QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
             QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
             QtCore.QDate(2024, 3, 12): "Jyooooti's Birthday",
+            QtCore.QDate(2024, 4, 5): "Akaandd's Birthday",
             QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
             QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
             QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
@@ -33,8 +34,9 @@ class TaskApp(QMainWindow):
             QtCore.QDate(2024, 6, 25): "Diiiiiiii's Birthday",
             QtCore.QDate(2024, 8, 15): "Faainaa's Birthday",
             QtCore.QDate(2024, 8, 25): "Gauravvv's Birthday",
-            QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
+            QtCore.QDate(2024, 9,  1): "Nagraaaj's Birthday",
             QtCore.QDate(2024, 9, 22): "Princuuuu's Birthday",
+            QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
             QtCore.QDate(2024, 11, 15): "Lulwaa's Birthday",
             QtCore.QDate(2024, 11, 27): "Sardarrrr's Birthday",
 
@@ -85,7 +87,6 @@ class TaskApp(QMainWindow):
         # Connect list item double click event to a function
         self.ui.listWidget.itemDoubleClicked.connect(self.delete_task)
 
-        self.ui.listWidget_3.itemDoubleClicked.connect(self.delete_city)
 
         # Update LCD display
         self.update_lcd()
@@ -105,7 +106,7 @@ class TaskApp(QMainWindow):
                                                                                                 "2024-03-12",
                                                                                                 "2024-04-12", 
                                                                                                 "2024-04-13",
-                                                                                                #Akhaand??
+                                                                                                "2024-04-05",
                                                                                                 "2024-04-19",
                                                                                                 "2024-04-23",
                                                                                                 "2024-04-29",
@@ -117,7 +118,7 @@ class TaskApp(QMainWindow):
                                                                                                 #Turkeyy??
                                                                                                 "2024-08-15",
                                                                                                 "2024-08-25",
-                                                                                                #nagraj??
+                                                                                                "2024-09-01",
                                                                                                 "2024-09-22",
                                                                                                 "2024-10-18",                                                                                                
                                                                                                 "2024-11-15",
@@ -155,25 +156,27 @@ class TaskApp(QMainWindow):
         selected_date = self.ui.calendarWidget.selectedDate()
 
         birthday_info = {
-            QtCore.QDate(2024, 1,   1): "Sharduul's Birthday",
-            QtCore.QDate(2024, 1,   5): "Dikki's Birthday",
-            QtCore.QDate(2024, 1,   7): "Scootyy's Birthday",
-            QtCore.QDate(2024, 1,  29): "Nitishh's Birthday",
-            QtCore.QDate(2024, 1,  31): "Reenii's Birthday",
-            QtCore.QDate(2024, 2,  27): "Aashiii's Birthday",
-            QtCore.QDate(2024, 3,  12): "Jyooooti's Birthday",
-            QtCore.QDate(2024, 4,  12): "Papaa's Birthday",
-            QtCore.QDate(2024, 4,  13): "Kauwaa's Birthday",
-            QtCore.QDate(2024, 4,  19): "Meeeee's Birthday",
-            QtCore.QDate(2024, 4,  23): "Anniversaryyy ",
-            QtCore.QDate(2024, 4,  29): "Maaami Birthday",
-            QtCore.QDate(2024, 5,  3 ): "Doreeemon's Birthday",
-            QtCore.QDate(2024, 5,  13): "Mammmiii's Birthday",
-            QtCore.QDate(2024, 5,  21): "Manaswitii's Birthday",
-            QtCore.QDate(2024, 6,  25): "Diiiiiiii's Birthday",
-            QtCore.QDate(2024, 8,  15): "Faainaa's Birthday",
-            QtCore.QDate(2024, 8,  25): "Gauravvv's Birthday",
-            QtCore.QDate(2024, 9,  22): "Princuuuu's Birthday",
+            QtCore.QDate(2024, 1, 1): "Sharduul's Birthday",
+            QtCore.QDate(2024, 1, 5): "Dikki's Birthday",
+            QtCore.QDate(2024, 1, 7): "Scootyy's Birthday",
+            QtCore.QDate(2024, 1, 29): "Nitishh's Birthday",
+            QtCore.QDate(2024, 1, 31): "Reenii's Birthday",
+            QtCore.QDate(2024, 2, 27): "Aashiii's Birthday",
+            QtCore.QDate(2024, 3, 12): "Jyooooti's Birthday",
+            QtCore.QDate(2024, 4, 5): "Akaandd's Birthday",
+            QtCore.QDate(2024, 4, 12): "Papaa's Birthday",
+            QtCore.QDate(2024, 4, 13): "Kauwaa's Birthday",
+            QtCore.QDate(2024, 4, 19): "Meeeee's Birthday",
+            QtCore.QDate(2024, 4, 23): "Anniversayy ",
+            QtCore.QDate(2024, 4, 29): "Maaami Birthday",
+            QtCore.QDate(2024, 5, 3): "Doreeemon's Birthday",
+            QtCore.QDate(2024, 5, 13): "Mammmiii's Birthday",
+            QtCore.QDate(2024, 5, 21): "Manaswitii's Birthday",
+            QtCore.QDate(2024, 6, 25): "Diiiiiiii's Birthday",
+            QtCore.QDate(2024, 8, 15): "Faainaa's Birthday",
+            QtCore.QDate(2024, 8, 25): "Gauravvv's Birthday",
+            QtCore.QDate(2024, 9,  1): "Nagraaaj's Birthday",
+            QtCore.QDate(2024, 9, 22): "Princuuuu's Birthday",
             QtCore.QDate(2024, 10, 18): "Sakeeeet's Birthday",
             QtCore.QDate(2024, 11, 15): "Lulwaa's Birthday",
             QtCore.QDate(2024, 11, 27): "Sardarrrr's Birthday",
