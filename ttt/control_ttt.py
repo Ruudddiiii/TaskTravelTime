@@ -8,7 +8,11 @@ from PyQt5.QtGui import QTextCharFormat, QColor
 from PyQt5.QtWidgets import QToolTip
 from PyQt5.QtWidgets import QMessageBox
 from datetime import datetime
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QSpinBox
+from PyQt5.QtWidgets import  QVBoxLayout, QLabel, QPushButton, QSpinBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtCore import QTimer, QTime, Qt
+from PyQt5 import *
+
 
 
 class TaskApp(QMainWindow):
@@ -44,8 +48,16 @@ class TaskApp(QMainWindow):
         }
     def __init__(self):
         super().__init__()
+
+
+
+
+
         self.days_limit = 3 
         # self.setWindowTitle("Settings")
+
+
+
         
         layout = QVBoxLayout()
         self.days_spinbox = QSpinBox()
@@ -136,6 +148,8 @@ class TaskApp(QMainWindow):
         self.init_calendar_formats()
 
         # self.setup_dark_mode()
+
+
 
 
     
