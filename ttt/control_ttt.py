@@ -11,7 +11,7 @@ from datetime import datetime
 from PyQt5.QtWidgets import  QVBoxLayout, QLabel, QPushButton, QSpinBox
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
 from PyQt5.QtCore import QTimer, QTime, Qt
-from PyQt5 import *
+import pyttsx3
 
 
 
@@ -48,6 +48,15 @@ class TaskApp(QMainWindow):
         }
     def __init__(self):
         super().__init__()
+
+
+
+
+        
+
+        
+
+
 
 
 
@@ -148,6 +157,31 @@ class TaskApp(QMainWindow):
         self.init_calendar_formats()
 
         # self.setup_dark_mode()
+
+
+
+
+
+        # Initialize text-to-speech engine
+        # Initialize UI elements
+        self.ui.pushButton.clicked.connect(self.triggerVoiceAlert)
+
+        self.engine = pyttsx3.init()
+        
+
+    def triggerVoiceAlert(self):
+        # Define the alert message
+        alertMessage = 'Alert! This is a voice alert.'
+
+        # Speak the alert message
+        self.engine.say(alertMessage)
+        self.engine.runAndWait()
+
+        # Stop the engine after speaking the alert message
+        self.engine.stop()
+
+
+        
 
 
 
