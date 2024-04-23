@@ -11,7 +11,7 @@ from datetime import datetime
 from PyQt5.QtWidgets import  QVBoxLayout, QLabel, QPushButton, QSpinBox
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
 from PyQt5.QtCore import QTimer, QTime, Qt
-import pyttsx3
+# import pyttsx3
 
 
 
@@ -48,19 +48,6 @@ class TaskApp(QMainWindow):
         }
     def __init__(self):
         super().__init__()
-
-
-
-
-        
-
-        
-
-
-
-
-
-
 
         self.days_limit = 3 
         # self.setWindowTitle("Settings")
@@ -163,22 +150,22 @@ class TaskApp(QMainWindow):
 
 
         # Initialize text-to-speech engine
-        # Initialize UI elements
-        self.ui.pushButton.clicked.connect(self.triggerVoiceAlert)
+        # # Initialize UI elements
+        # self.ui.pushButton.clicked.connect(self.triggerVoiceAlert)
 
-        self.engine = pyttsx3.init()
+        # self.engine = pyttsx3.init()
         
 
-    def triggerVoiceAlert(self):
-        # Define the alert message
-        alertMessage = 'Alert! This is a voice alert.'
+    # def triggerVoiceAlert(self):
+    #     # Define the alert message
+    #     alertMessage = 'Alert! This is a voice alert.'
 
-        # Speak the alert message
-        self.engine.say(alertMessage)
-        self.engine.runAndWait()
+    #     # Speak the alert message
+    #     self.engine.say(alertMessage)
+    #     self.engine.runAndWait()
 
-        # Stop the engine after speaking the alert message
-        self.engine.stop()
+    #     # Stop the engine after speaking the alert message
+    #     self.engine.stop()
 
 
         
